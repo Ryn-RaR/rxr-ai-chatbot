@@ -35,19 +35,18 @@ st.caption("Ask me anything about car detailing, services, pricing, or appointme
 for i, msg in enumerate(st.session_state['messages'][1:]):
     message(msg["content"], is_user=(msg["role"] == "user"), key=str(i))
 
-# Set API key securely
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Set up OpenAI client (new SDK style)
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # Input field
 if prompt := st.chat_input("Ask your car detailing question here..."):
     st.session_state['messages'].append({"role": "user", "content": prompt})
 
     # Get response from OpenAI
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=st.session_state['messages']
     )
     reply = response.choices[0].message.content
     st.session_state['messages'].append({"role": "assistant", "content": reply})
     message(reply, is_user=False, key=str(len(st.session_state['messages'])))
-
