@@ -1,4 +1,3 @@
 streamlit
-openai>=1.0.0
+openai
 streamlit-chat
-# rxr-ai-chatbot
