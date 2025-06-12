@@ -44,7 +44,7 @@ if prompt := st.chat_input("Ask your car detailing question here..."):
 
     # Get response from OpenAI
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=st.session_state['messages']
     )
     reply = response.choices[0].message.content
